@@ -1,0 +1,70 @@
+services:
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=7878/tcp
+    volumes:
+      - ./config-radarr:/config
+      - ./media:/data
+  sonarr:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=8989/tcp
+    volumes:
+      - ./config-sonarr:/config
+      - ./media:/data
+  lidarr:
+    container_name: lidarr
+    image: ghcr.io/hotio/lidarr
+    ports:
+      - "8686:8686"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=8686/tcp
+    volumes:
+      - ./config-lidarr:/config
+      - ./media:/data
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=9696/tcp
+    volumes:
+      - ./config-prowlarr:/config
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config-qbittorrent:/config
+      - ./media:/data
+    restart: unless-stopped
