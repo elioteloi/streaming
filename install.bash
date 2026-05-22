@@ -2,7 +2,7 @@
 
 ARR=("lidarr" "prowlarr" "qbittorrent" "radarr" "sonarr")
 
-FOLDER=("movies" "shows" "albums")
+FOLDER=("movie" "tv" "music" "downloads")
 
 sudo apt install figlet
 
@@ -67,9 +67,9 @@ echo ""
             do 
                 if [ ! -d "./media/$item" ]; then
                     mkdir "./media/$item"
-                    echo "$item created..."
+                    echo "/media/$item created..."
                 else 
-                    echo "$item already created..."
+                    echo "/media/$item already created..."
                 fi
         done
     else 
@@ -82,4 +82,4 @@ echo ""
 
 figlet docker compose
 
-docker compose up --build
+# docker compose up --build
