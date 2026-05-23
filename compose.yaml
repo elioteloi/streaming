@@ -13,6 +13,7 @@ services:
     volumes:
       - ./config-radarr:/config
       - ./media:/data
+      - ./media/downloads:/downloads
   sonarr:
     container_name: sonarr
     image: ghcr.io/hotio/sonarr
@@ -27,6 +28,8 @@ services:
     volumes:
       - ./config-sonarr:/config
       - ./media:/data
+      - ./media/downloads:/downloads
+
   lidarr:
     container_name: lidarr
     image: ghcr.io/hotio/lidarr
@@ -41,6 +44,7 @@ services:
     volumes:
       - ./config-lidarr:/config
       - ./media:/data
+      - ./media/downloads:/downloads
   prowlarr:
     container_name: prowlarr
     image: ghcr.io/hotio/prowlarr
@@ -66,5 +70,5 @@ services:
       - "8080:8080"
     volumes:
       - ./config-qbittorrent:/config
-      - ./media:/data
+      - ./media/downloads:/downloads
     restart: unless-stopped
