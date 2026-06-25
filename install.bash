@@ -1,6 +1,6 @@
 # bin/bash
 
-ARR=("lidarr" "prowlarr" "qbittorrent" "radarr" "sonarr")
+ARR=("lidarr" "prowlarr" "qbittorrent" "radarr" "sonarr" "seerr")
 
 FOLDER=("movie" "tv" "music" "downloads")
 

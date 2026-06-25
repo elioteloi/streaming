@@ -1,4 +1,23 @@
 services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Tashkent
+      - PORT=5055 #optional
+    ports:
+      - 5055:5055
+    volumes:
+      - /seer/config:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
   radarr:
     container_name: radarr
     image: ghcr.io/hotio/radarr
@@ -12,7 +31,7 @@ services:
       - WEBUI_PORTS=7878/tcp
     volumes:
       - ./config-radarr:/config
-      - ./media:/data
+      - ${MEDIA_PATH}:/data
       - ./media/downloads:/downloads
   sonarr:
     container_name: sonarr
@@ -27,7 +46,7 @@ services:
       - WEBUI_PORTS=8989/tcp
     volumes:
       - ./config-sonarr:/config
-      - ./media:/data
+      - ${MEDIA_PATH}:/data
       - ./media/downloads:/downloads
 
   lidarr:
@@ -43,7 +62,7 @@ services:
       - WEBUI_PORTS=8686/tcp
     volumes:
       - ./config-lidarr:/config
-      - ./media:/data
+      - ${MEDIA_PATH}:/data
       - ./media/downloads:/downloads
   prowlarr:
     container_name: prowlarr
